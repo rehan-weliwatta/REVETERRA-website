@@ -11,7 +11,7 @@ export default function VibeSection() {
   ];
 
   return (
-    <section id="community" className="py-24 bg-deep-black overflow-hidden relative z-10">
+    <section id="community" className="py-20 bg-deep-black overflow-hidden relative z-10">
       {/* Dynamic Marquee */}
       <div className="bg-cyber-yellow text-black py-4 whitespace-nowrap overflow-hidden flex border-y-2 border-black rotate-1">
         <Marquee speed={120} gradient={false}>
@@ -24,16 +24,16 @@ export default function VibeSection() {
       </div>
 
       {/* Grid Content */}
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-          <div className="space-y-12">
-            <h2 className="text-6xl md:text-8xl font-brutal leading-[0.8] uppercase">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          <div className="space-y-10 sm:space-y-12">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-brutal leading-[0.9] uppercase">
               SYNC <br /> THE <br /> <span className="text-cyber-yellow">VIBE</span>
             </h2>
-            <p className="text-gray-400 max-w-sm uppercase text-sm tracking-wider leading-relaxed">
+            <p className="text-gray-400 max-w-full sm:max-w-lg uppercase text-xs sm:text-sm tracking-wider leading-relaxed">
               Join the collective. Tag #REVETERRA01 on your fits to be featured in the cyber-archive.
             </p>
-            <div className="flex gap-8">
+            <div className="flex flex-wrap gap-4 sm:gap-8">
               <a href="https://www.instagram.com/reveterra?igsh=ejRpMm4xcjZlZjNw&utm_source=qr" target="_blank" rel="noreferrer">
                 <Instagram className="w-8 h-8 hover:text-cyber-yellow transition-colors cursor-pointer" />
               </a>
@@ -46,15 +46,15 @@ export default function VibeSection() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {socialImages.map((src, i) => (
               <motion.div
                 key={i}
                 whileHover={{ y: -10 }}
-                className={i % 2 === 0 ? "mt-12" : ""}
+                className={i % 2 === 0 ? "mt-8 sm:mt-12" : "mt-0"}
               >
-                <div className="relative aspect-square grayscale hover:grayscale-0 transition-all duration-500 border border-white/10">
-                  <img src={src} className="w-full h-full object-cover" alt="" />
+                <div className="relative aspect-square grayscale hover:grayscale-0 transition-all duration-500 border border-white/10 overflow-hidden">
+                  <img src={src} loading="lazy" className="w-full h-full object-cover" alt="Community Image" />
                 </div>
               </motion.div>
             ))}

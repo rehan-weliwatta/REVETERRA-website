@@ -9,15 +9,16 @@ const BRAND_VIDEO_URL = "https://dl.dropboxusercontent.com/scl/fi/uofgpve5rrk53c
 
 export default function Hero() {
   return (
-    <section id="home" className="relative h-screen w-full overflow-hidden flex items-center justify-center">
+    <section id="home" className="relative min-h-[85vh] sm:min-h-screen w-full overflow-hidden flex items-center justify-center px-4 sm:px-6">
       {/* Background Video */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-black/60 z-10" />
+        <div className="absolute inset-0 bg-black/70 z-10" />
         <video
           autoPlay
           loop
           muted
           playsInline
+          preload="metadata"
           className="w-full h-full object-cover grayscale brightness-50"
         >
           <source
@@ -36,17 +37,17 @@ export default function Hero() {
           className="flex flex-col items-center"
         >
           <div className="absolute w-full flex justify-center items-center pointer-events-none -translate-y-12">
-            <h1 className="text-[12vw] md:text-[180px] font-brutal italic uppercase leading-none text-transparent text-stroke-solid opacity-20">
+            <h1 className="text-[10vw] sm:text-[12vw] md:text-[180px] font-brutal italic uppercase leading-none text-transparent text-stroke-solid opacity-20">
               SHIBUYA SOUL
             </h1>
           </div>
 
-          <div className="relative mt-24">
+          <div className="relative mt-20 sm:mt-24">
             <a href="#collections">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-cyber-yellow text-black px-12 py-5 font-brutal italic uppercase tracking-tighter text-2xl hover:bg-white transition-colors"
+                className="bg-cyber-yellow text-black px-8 sm:px-12 py-4 sm:py-5 font-brutal italic uppercase tracking-tighter text-xl sm:text-2xl hover:bg-white transition-colors"
               >
                 Shop the Drop
               </motion.button>

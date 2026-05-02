@@ -2,7 +2,6 @@ import { useRef, Suspense, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, MeshDistortMaterial, PerspectiveCamera, OrbitControls, useGLTF, Center } from "@react-three/drei";
 import * as THREE from "three";
-import { motion } from "motion/react";
 
 /**
  * TO REPLACE WITH YOUR OWN MODEL:
@@ -85,7 +84,7 @@ function FallbackMesh({ scrollProgress }: { scrollProgress: number }) {
 }
 
 export default function TeeModelViewer({ scrollProgress }: { scrollProgress: number }) {
-  const { width, height } = useWindowSize();
+  const { width } = useWindowSize();
   
   // Responsive calculations
   const isMobile = width < 768;
@@ -109,7 +108,7 @@ export default function TeeModelViewer({ scrollProgress }: { scrollProgress: num
 
   return (
     <div className={`w-full relative z-10 pointer-events-none`} style={{ height: containerHeight }}>
-      <Canvas shadows>
+      <Canvas shadows dpr={isMobile ? 1 : isTablet ? [1, 1.25] : [1, 1.5]}>
         <PerspectiveCamera makeDefault position={cameraPosition} />
         <ambientLight intensity={4} />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1.5} color="#ffffff" />
@@ -126,12 +125,7 @@ export default function TeeModelViewer({ scrollProgress }: { scrollProgress: num
         <OrbitControls enableZoom={false} enablePan={false} />
       </Canvas>
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          className={`${textSize} font-brutal uppercase text-white/5 absolute select-none`}
-        >
-        </motion.div>
+        <div className={`${textSize} font-brutal uppercase text-white/5 absolute select-none`} />
       </div>
     </div>
   );

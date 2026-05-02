@@ -1,5 +1,4 @@
 import { motion } from "motion/react";
-import { cn } from "@/src/lib/utils";
 
 interface Product {
   id: string;
@@ -50,6 +49,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
         <img
           src={product.image}
           alt={product.name}
+          loading="lazy"
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-50" />
@@ -59,6 +59,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
           <img
             src={product.backImage}
             alt={`${product.name} back`}
+            loading="lazy"
             className="w-full h-full object-cover"
           />
         </div>
@@ -89,23 +90,23 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
 
 export default function ProductShowcase() {
   return (
-    <section id="collections" className="py-24 px-6 max-w-7xl mx-auto">
-      <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+    <section id="collections" className="py-20 px-4 sm:px-6 max-w-7xl mx-auto">
+      <div className="flex flex-col md:flex-row justify-between items-end mb-12 md:mb-16 gap-6 md:gap-8">
         <div>
-          <h2 className="text-6xl md:text-8xl font-brutal uppercase mb-4">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-brutal uppercase mb-4">
              THE <span className="text-stroke text-white">GENESIS</span>
           </h2>
-          <p className="max-w-md text-gray-500 uppercase text-xs tracking-widest font-medium">
-            Hand-crafted graphics inspired by late-90s cyber-noir aesthetics. 
+          <p className="max-w-lg md:max-w-md text-gray-500 uppercase text-[11px] sm:text-xs tracking-widest font-medium leading-relaxed">
+            Hand-crafted graphics inspired by late-90s cyber-noir aesthetics.
             Printed on 300GSM premium heavyweight cotton.
           </p>
         </div>
-        <div className="text-right">
-          <span className="text-cyber-yellow font-mono text-xs">AVAILABLE_ITEMS: 02</span>
+        <div className="text-left md:text-right">
+          <span className="text-cyber-yellow font-mono text-[10px] sm:text-xs">AVAILABLE_ITEMS: 02</span>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
         {PRODUCTS.map((product, i) => (
           <ProductCard key={product.id} product={product} index={i} />
         ))}

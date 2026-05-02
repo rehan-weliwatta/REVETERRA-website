@@ -7,7 +7,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 w-full z-[100] px-8 py-6 flex justify-between items-center mix-blend-difference">
+      <header className="fixed top-0 left-0 w-full z-[100] px-4 sm:px-6 py-4 sm:py-6 flex justify-between items-center mix-blend-difference">
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -20,7 +20,7 @@ export default function Header() {
               loop 
               muted 
               playsInline
-              className="h-60 w-auto object-contain"
+              className="h-100 sm:h-50 w-auto object-contain"
             />
           </div>
         </motion.div>
