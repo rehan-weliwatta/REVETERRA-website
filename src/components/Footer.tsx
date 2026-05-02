@@ -46,12 +46,12 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 pt-8">
           <div className="flex items-center gap-4">
             <div className="w-8 h-8 bg-cyber-yellow flex items-center justify-center">
-              <span className="text-black font-brutal text-lg italic tracking-tighter">NT</span>
+              <span className="text-black font-brutal text-lg italic tracking-tighter">RT</span>
             </div>
             <div className="font-brutal text-2xl tracking-tighter italic">© 2026</div>
           </div>
           <div className="font-mono text-[9px] text-white/20 uppercase tracking-[0.2em] text-center md:text-right">
-            Designed for the collective // NEOTOKYO_LABS // All rights reserved
+            Designed for the collective // RÊVETERЯA // All rights reserved
           </div>
         </div>
       </div>
