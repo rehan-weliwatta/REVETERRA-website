@@ -1,5 +1,5 @@
+import { Menu, X } from "lucide-react";
 import { motion } from "motion/react";
-import { ShoppingBag, Menu, X } from "lucide-react";
 import { useState } from "react";
 
 export default function Header() {
@@ -7,7 +7,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 w-full z-[100] px-4 sm:px-6 py-4 sm:py-6 flex justify-between items-center mix-blend-difference">
+      <header className="fixed top-0 left-0 w-full z-[100] px-4 sm:px-8 py-4 flex justify-between items-center bg-black/30 backdrop-blur-md border-b border-white/10 transition-all duration-300">
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -20,7 +20,7 @@ export default function Header() {
               loop 
               muted 
               playsInline
-              className="h-100 sm:h-50 w-auto object-contain"
+              className="h-[120px] sm:h-[160px] w-auto object-contain -my-12 sm:-my-16 pointer-events-none scale-125 origin-left"
             />
           </div>
         </motion.div>

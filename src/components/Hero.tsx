@@ -1,5 +1,5 @@
-import { motion } from "motion/react";
 import { ArrowDown } from "lucide-react";
+import { motion } from "motion/react";
 
 /**
  * BRAN_VIDEO_URL: Replace this URL with your actual brand video.
@@ -18,8 +18,8 @@ export default function Hero() {
           loop
           muted
           playsInline
-          preload="metadata"
-          className="w-full h-full object-cover grayscale brightness-50"
+          preload="auto"
+          className="w-full h-full object-cover grayscale brightness-70"
         >
           <source
             src={BRAND_VIDEO_URL}
