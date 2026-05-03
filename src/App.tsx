@@ -1,33 +1,25 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, Suspense, lazy } from "react";
 import { motion, useScroll, useSpring } from "motion/react";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
-import TeeModelViewer from "./components/TeeModelViewer";
+const TeeModelViewer = lazy(() => import("./components/TeeModelViewer"));
 import ProductShowcase from "./components/ProductShowcase";
 import BrandManifesto from "./components/BrandManifesto";
 import VibeSection from "./components/VibeSection";
 import Footer from "./components/Footer";
+
+const SPRING_CONFIG = {
+  stiffness: 100,
+  damping: 30,
+  restDelta: 0.001
+};
 
 export default function App() {
   const { scrollYProgress } = useScroll();
   const [scrollValue, setScrollValue] = useState(0);
 
   // Smooth out the scroll value for the 3D rotation
-  const smoothScroll = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+  const smoothScroll = useSpring(scrollYProgress, SPRING_CONFIG);
 
   useEffect(() => {
     return smoothScroll.on("change", (latest) => {
