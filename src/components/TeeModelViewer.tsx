@@ -8,7 +8,7 @@ import * as THREE from "three";
  * 1. Upload your .glb file to a public URL or place it in the /public folder.
  * 2. Update the MODEL_URL constant below with your file path.
  */
-const MODEL_URL = "https://dl.dropboxusercontent.com/scl/fi/gg7imqj7mgas0ze56enim/Animated-Walking-Tshirt.glb?rlkey=z4360lwr6b1wc2w5atgxcw7zx"; 
+const MODEL_URL = "https://dl.dropboxusercontent.com/scl/fi/p2vbn7vivmo4rr9dufwkh/reveterra.glb?rlkey=31c4rily4iyq025wsrxecgavj"; 
 
 function useWindowSize() {
   const [windowSize, setWindowSize] = useState({
