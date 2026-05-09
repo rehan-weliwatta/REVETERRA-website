@@ -2,31 +2,12 @@ import { useState, useEffect, Suspense, lazy } from "react";
 import { motion, useScroll, useSpring } from "motion/react";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
-const TeeModelViewer = lazy(() => import("./components/TeeModelViewer"));
 import ProductShowcase from "./components/ProductShowcase";
 import BrandManifesto from "./components/BrandManifesto";
 import VibeSection from "./components/VibeSection";
 import Footer from "./components/Footer";
 
-const SPRING_CONFIG = {
-  stiffness: 100,
-  damping: 30,
-  restDelta: 0.001
-};
-
 export default function App() {
-  const { scrollYProgress } = useScroll();
-  const [scrollValue, setScrollValue] = useState(0);
-
-  // Smooth out the scroll value for the 3D rotation
-  const smoothScroll = useSpring(scrollYProgress, SPRING_CONFIG);
-
-  useEffect(() => {
-    return smoothScroll.on("change", (latest) => {
-      setScrollValue(latest);
-    });
-  }, [smoothScroll]);
-
   return (
     <main className="relative min-h-screen bg-deep-black selection:bg-cyber-yellow selection:text-black overflow-x-hidden">
       {/* Background Graphic Layer */}
@@ -59,32 +40,7 @@ export default function App() {
         <Hero />
       </div>
 
-      {/* Interactive 3D Section */}
-      <section className="relative py-24 z-10">
-        <div className="max-w-7xl mx-auto px-6 mb-12">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="border-l-4 border-cyber-yellow pl-8"
-          >
-            <h2 className="text-4xl md:text-6xl font-brutal uppercase leading-none">
-              PHYSICAL_ <br /> MANIFESTATION
-            </h2>
-            <p className="mt-4 text-gray-500 font-mono text-xs tracking-widest uppercase">
-              Interact with the genesis silhouette below. Scroll to rotate.
-            </p>
-          </motion.div>
-        </div>
 
-        <Suspense fallback={
-          <div className="h-[60vh] flex items-center justify-center font-brutal text-cyber-yellow uppercase animate-pulse">
-            Loading Virtual Asset...
-          </div>
-        }>
-          <TeeModelViewer scrollProgress={scrollValue} />
-        </Suspense>
-      </section>
 
       {/* Main Product Showcase */}
       <ProductShowcase />
