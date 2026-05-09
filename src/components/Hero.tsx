@@ -5,7 +5,7 @@ import { motion } from "motion/react";
  * BRAN_VIDEO_URL: Replace this URL with your actual brand video.
  * Ensure it is a direct link to an MP4 file that supports browser playback.
  */
-const BRAND_VIDEO_URL = "https://dl.dropboxusercontent.com/scl/fi/uofgpve5rrk53cbd48m7i/brand_video.mp4?rlkey=2i03vjtcds8v3irad42oe77bi";
+const BRAND_VIDEO_URL = "https://dl.dropboxusercontent.com/scl/fi/i97d1qlaq7vasyvgyknpc/BG.mp4?rlkey=t2oq7ngedtdormzv6n3mj0k3b";
 
 export default function Hero() {
   return (
