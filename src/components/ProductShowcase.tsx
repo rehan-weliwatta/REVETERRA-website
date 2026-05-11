@@ -1,6 +1,36 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { Star, X } from "lucide-react";
+import { ChevronDown, Star, X } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useState } from "react";
+
+function Accordion({ title, children, defaultOpen = false }: { title: React.ReactNode, children: React.ReactNode, defaultOpen?: boolean }) {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+  
+  return (
+    <div className="border-b border-white/10">
+      <button 
+        onClick={() => setIsOpen(!isOpen)} 
+        className="w-full flex justify-between items-center py-5 text-left group"
+      >
+        <span className="font-brutal tracking-widest uppercase text-sm group-hover:text-cyber-yellow transition-colors">{title}</span>
+        <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-180 text-cyber-yellow' : 'text-white/50'}`} />
+      </button>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="overflow-hidden"
+          >
+            <div className="pb-6">
+              {children}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 interface Product {
   id: string;
@@ -10,6 +40,11 @@ interface Product {
   backImage: string;
   tag: string;
   reviewCount: number;
+  description: string;
+  features: string[];
+  fabric: string;
+  material: string;
+  care: string[];
 }
 
 const PRODUCTS: Product[] = [
@@ -21,6 +56,27 @@ const PRODUCTS: Product[] = [
     backImage: "https://dl.dropboxusercontent.com/scl/fi/xvrfx27wo0g6wrratcr68/2.png?rlkey=gy2m70ljkzjj58eoio8fmrrnh",
     tag: "LIMITED EDITION",
     reviewCount: 7,
+    description: "A vintage inspired graphic tee designed for those drawn to the unknown. Featuring bold extraterrestrial artwork with distressed textures and cosmic visuals, this piece blends retro sci-fi aesthetics with modern oversized streetwear energy.",
+    features: [
+      "100% premium cotton for a soft heavyweight feel.",
+      "Oversized unisex fit.",
+      "High-definition printed artwork.",
+      "Large vintage-inspired back graphic print.",
+      "Minimal front chest branding.",
+      "Washed dark finish for a timeless streetwear look."
+    ],
+    fabric: "260GSM",
+    material: "100% Cotton",
+    care: [
+      "Wash and dry inside out.",
+      "Hand wash or machine wash cold.",
+      "Wash dark colors separately.",
+      "Iron inside out.",
+      "Do not bleach.",
+      "Do not wring.",
+      "Do not iron directly on print.",
+      "Do not dry clean."
+    ]
   },
   {
     id: "tee-02",
@@ -30,6 +86,26 @@ const PRODUCTS: Product[] = [
     backImage: "https://dl.dropboxusercontent.com/scl/fi/il6gl0ixsmm6t1shdi1bv/4.png?rlkey=2nzreven0d7jise8qs4ly3jpq",
     tag: "STRICTLY 1/20",
     reviewCount: 9,
+    description: "A bold fusion of anime inspired artistry and elevated streetwear design. Crafted to stand out with intricate back graphics and refined detailing, this oversized tee blends comfort, culture, and statement aesthetics into one premium essential.",
+    features: [
+      "100% premium cotton for a soft and heavyweight feel.",
+      "Oversized unisex fit.",
+      "High-quality printed graphics.",
+      "Detailed full-back anime-inspired artwork.",
+      "Sleeve and front chest graphic detailing."
+    ],
+    fabric: "260GSM",
+    material: "100% Cotton",
+    care: [
+      "Wash and dry inside out.",
+      "Hand wash or machine wash cold.",
+      "Wash dark colors separately.",
+      "Iron inside out.",
+      "Do not bleach.",
+      "Do not wring.",
+      "Do not iron directly on print.",
+      "Do not dry clean."
+    ]
   },
 ];
 
@@ -56,12 +132,14 @@ function getReviewsForProduct(count: number, productId: string) {
 function ProductModal({ product, onClose }: { product: Product; onClose: () => void }) {
   const [reviews, setReviews] = useState<any[]>([]);
   const [showAll, setShowAll] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
 
   useEffect(() => {
     setReviews(getReviewsForProduct(product.reviewCount, product.id));
   }, [product]);
 
   const displayedReviews = showAll ? reviews : reviews.slice(0, 3);
+  const waLink = `https://wa.me/94765251839?text=Hi,%20I%20would%20like%20to%20order%20the%20${encodeURIComponent(product.name)}%20(${product.price})`;
 
   return (
     <motion.div
@@ -86,15 +164,24 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
         </button>
 
         {/* Product Image Side */}
-        <div className="group relative w-full md:w-1/2 h-[30vh] md:h-[85vh] bg-[#e6e6e6] overflow-hidden shrink-0">
+        <div 
+          className="group relative w-full md:w-1/2 h-[30vh] md:h-[85vh] bg-[#e6e6e6] overflow-hidden shrink-0 cursor-pointer"
+          onClick={(e) => { e.stopPropagation(); setIsFlipped(!isFlipped); }}
+        >
+          {/* Mobile Tap Indicator */}
+          {/* <div className="md:hidden absolute top-4 left-4 z-40 bg-black/50 backdrop-blur-md text-cyber-yellow border border-white/10 px-3 py-1.5 text-[9px] font-brutal uppercase tracking-widest rounded-full pointer-events-none flex items-center gap-2">
+            <span>Tap to Flip</span>
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+          </div> */}
+
           <img 
             src={product.image} 
             alt={product.name} 
             className="w-full h-full object-contain md:p-8 transition-transform duration-700" 
           />
           
-          {/* Back Image Reveal On Hover */}
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[#e6e6e6]">
+          {/* Back Image Reveal On Hover or Tap */}
+          <div className={`absolute inset-0 transition-opacity duration-500 bg-[#e6e6e6] ${isFlipped ? 'opacity-100' : 'opacity-0 md:group-hover:opacity-100'}`}>
             <img
               src={product.backImage}
               alt={`${product.name} back`}
@@ -109,52 +196,115 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
           </div>
         </div>
 
-        {/* Reviews Side */}
-        <div className="w-full md:w-1/2 p-6 sm:p-10 flex flex-col h-[55vh] md:h-full overflow-y-auto">
-          <div className="flex items-center gap-4 mb-8 pb-6 border-b border-white/10">
-            <div>
-              <div className="text-3xl font-brutal leading-none">4.9</div>
-              <div className="flex text-cyber-yellow mt-1">
-                <Star className="w-4 h-4 fill-cyber-yellow" /><Star className="w-4 h-4 fill-cyber-yellow" /><Star className="w-4 h-4 fill-cyber-yellow" /><Star className="w-4 h-4 fill-cyber-yellow" /><Star className="w-4 h-4 fill-cyber-yellow" />
-              </div>
-            </div>
-            <div>
-              <div className="font-brutal uppercase text-lg">CUSTOMER REVIEWS</div>
-              <div className="font-mono text-[10px] text-gray-500 uppercase tracking-widest">Based on {product.reviewCount} verified purchases</div>
-            </div>
-          </div>
+        {/* Details & Reviews Side */}
+        <div className="w-full md:w-1/2 flex flex-col h-[55vh] md:h-full bg-[#0a0a0a] relative">
+          
+          {/* Scrollable Content */}
+          <div className="flex-1 overflow-y-auto custom-scrollbar p-6 sm:p-10">
+             <div className="mb-6">
+               <h2 className="text-2xl font-brutal uppercase text-white/90">Product Details</h2>
+             </div>
 
-          <div className="space-y-6 flex-1">
-            {displayedReviews.map((review, i) => (
-              <motion.div 
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.1 }}
-                key={i} 
-                className="bg-[#111] border border-white/5 p-5"
-              >
-                <div className="flex justify-between items-start mb-3">
-                  <div className="font-brutal uppercase text-sm text-cyber-yellow">{review.author}</div>
-                  <div className="flex">
-                    {[...Array(5)].map((_, idx) => (
-                      <Star key={idx} className={`w-3 h-3 ${idx < review.rating ? 'text-cyber-yellow fill-cyber-yellow' : 'text-white/20'}`} />
-                    ))}
+             <Accordion title="Description" defaultOpen={true}>
+               <p className="text-white/70 font-sans text-sm leading-relaxed">
+                 {product.description}
+               </p>
+             </Accordion>
+
+             <Accordion title="Details & Care">
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="font-mono text-cyber-yellow mb-2 tracking-widest text-[10px] uppercase">Key Features</h4>
+                    <ul className="list-disc list-inside text-white/70 text-xs space-y-1">
+                      {product.features.map(f => <li key={f} className="pl-1">{f}</li>)}
+                      <li className="pl-1">Fabric: {product.fabric}</li>
+                    </ul>
+                  </div>
+                  <div>
+                     <h4 className="font-mono text-cyber-yellow mb-2 tracking-widest text-[10px] uppercase">Care Guide ({product.material})</h4>
+                     <ul className="list-disc list-inside text-white/70 text-xs space-y-1">
+                       {product.care.map(c => <li key={c} className="pl-1">{c}</li>)}
+                     </ul>
                   </div>
                 </div>
-                <p className="text-sm text-white/80 font-sans leading-relaxed">"{review.text}"</p>
-                <div className="font-mono text-[9px] text-white/30 mt-3">{review.date}</div>
-              </motion.div>
-            ))}
+             </Accordion>
+
+             <Accordion title="Size Guide">
+               <div className="overflow-x-auto">
+                 <table className="w-full text-left text-xs text-white/70 border-collapse">
+                   <thead>
+                     <tr className="border-b border-white/20">
+                       <th className="pb-2 font-mono font-normal tracking-widest">SIZE</th>
+                       <th className="pb-2 font-mono font-normal tracking-widest">CHEST</th>
+                       <th className="pb-2 font-mono font-normal tracking-widest">LENGTH</th>
+                       <th className="pb-2 font-mono font-normal tracking-widest">SLEEVE</th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <tr className="border-b border-white/5"><td className="py-3 font-mono text-white">S</td><td className="py-3">42"</td><td className="py-3">28"</td><td className="py-3">9"</td></tr>
+                     <tr className="border-b border-white/5"><td className="py-3 font-mono text-white">M</td><td className="py-3">44"</td><td className="py-3">29"</td><td className="py-3">9.5"</td></tr>
+                     <tr className="border-b border-white/5"><td className="py-3 font-mono text-white">L</td><td className="py-3">46"</td><td className="py-3">30"</td><td className="py-3">10"</td></tr>
+                     <tr className=""><td className="py-3 font-mono text-white">XL</td><td className="py-3">48"</td><td className="py-3">31"</td><td className="py-3">10.5"</td></tr>
+                   </tbody>
+                 </table>
+               </div>
+             </Accordion>
+
+             <Accordion title={`Customer Reviews (${product.reviewCount})`}>
+                <div className="flex items-center gap-3 mb-6 mt-2">
+                  <div className="text-3xl font-brutal leading-none">4.9</div>
+                  <div className="flex text-cyber-yellow">
+                    <Star className="w-4 h-4 fill-cyber-yellow" /><Star className="w-4 h-4 fill-cyber-yellow" /><Star className="w-4 h-4 fill-cyber-yellow" /><Star className="w-4 h-4 fill-cyber-yellow" /><Star className="w-4 h-4 fill-cyber-yellow" />
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  {displayedReviews.map((review, i) => (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.1 }}
+                      key={i} 
+                      className="bg-[#111] border border-white/5 p-5"
+                    >
+                      <div className="flex justify-between items-start mb-3">
+                        <div className="font-brutal uppercase text-xs tracking-wider text-cyber-yellow">{review.author}</div>
+                        <div className="flex">
+                          {[...Array(5)].map((_, idx) => (
+                            <Star key={idx} className={`w-3 h-3 ${idx < review.rating ? 'text-cyber-yellow fill-cyber-yellow' : 'text-white/20'}`} />
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-xs text-white/80 font-sans leading-relaxed">"{review.text}"</p>
+                      <div className="font-mono text-[9px] text-white/30 mt-3">{review.date}</div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {reviews.length > 3 && (
+                  <button
+                    onClick={() => setShowAll(!showAll)}
+                    className="mt-6 w-full py-3 border border-white/20 hover:border-cyber-yellow font-brutal uppercase tracking-widest text-[10px] hover:text-cyber-yellow transition-colors"
+                  >
+                    {showAll ? "SHOW LESS" : `LOAD MORE REVIEWS`}
+                  </button>
+                )}
+             </Accordion>
+
+             {/* Spacer to ensure scrolling past the sticky footer */}
+             <div className="h-40 w-full shrink-0"></div>
           </div>
 
-          {reviews.length > 3 && (
-            <button
-              onClick={() => setShowAll(!showAll)}
-              className="mt-8 w-full py-4 border border-white/20 hover:border-cyber-yellow font-brutal uppercase tracking-widest text-sm hover:text-cyber-yellow transition-colors"
-            >
-              {showAll ? "SHOW LESS" : `VIEW ALL ${product.reviewCount} REVIEWS`}
-            </button>
-          )}
+          {/* Sticky Footer CTA */}
+          <div className="absolute bottom-0 left-0 w-full p-6 pt-12 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a] to-transparent pointer-events-none flex items-end justify-center">
+            <a href={waLink} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="w-full pointer-events-auto">
+              <button className="w-full py-4 bg-cyber-yellow text-black font-brutal italic uppercase tracking-tighter sm:text-lg hover:bg-white transition-colors shadow-[0_0_30px_rgba(204,255,0,0.15)] flex justify-between items-center px-6 sm:px-8">
+                <span>Order via WhatsApp</span>
+                <span className="font-mono not-italic text-xs sm:text-sm pt-1 tracking-widest">{product.price}</span>
+              </button>
+            </a>
+          </div>
+
         </div>
       </motion.div>
     </motion.div>
@@ -162,6 +312,19 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
 }
 
 function ProductCard({ product, index, onClick }: { product: Product; index: number; onClick: () => void }) {
+  const [isFlipped, setIsFlipped] = useState(false);
+  const waLink = `https://wa.me/94765251839?text=Hi,%20I%20would%20like%20to%20order%20the%20${encodeURIComponent(product.name)}%20(${product.price})`;
+
+  // Auto-flip images on mobile every 3 seconds so users see both sides automatically
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (window.innerWidth < 768) {
+        setIsFlipped(prev => !prev);
+      }
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -178,8 +341,14 @@ function ProductCard({ product, index, onClick }: { product: Product; index: num
         </span>
       </div>
 
+      {/* Mobile Pagination Dots */}
+      <div className="md:hidden absolute bottom-[40%] left-0 right-0 z-30 flex justify-center gap-1.5 pointer-events-none">
+        <div className={`w-1.5 h-1.5 rounded-full transition-colors duration-500 ${!isFlipped ? 'bg-cyber-yellow' : 'bg-white/20'}`} />
+        <div className={`w-1.5 h-1.5 rounded-full transition-colors duration-500 ${isFlipped ? 'bg-cyber-yellow' : 'bg-white/20'}`} />
+      </div>
+
       {/* Image Container */}
-      <div className="relative aspect-[3/4] overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700">
+      <div className="relative aspect-[3/4] overflow-hidden grayscale-0 md:grayscale md:group-hover:grayscale-0 transition-all duration-700">
         <img
           src={product.image}
           alt={product.name}
@@ -188,8 +357,8 @@ function ProductCard({ product, index, onClick }: { product: Product; index: num
         />
         <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-50 pointer-events-none" />
         
-        {/* Back Image Reveal On Hover */}
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+        {/* Back Image Reveal On Hover or Auto-Flip */}
+        <div className={`absolute inset-0 transition-opacity duration-700 ${isFlipped ? 'opacity-100' : 'opacity-0 md:group-hover:opacity-100'}`}>
           <img
             src={product.backImage}
             alt={`${product.name} back`}
@@ -216,7 +385,7 @@ function ProductCard({ product, index, onClick }: { product: Product; index: num
           <button className="flex-1 py-4 bg-transparent border border-white/10 hover:border-cyber-yellow hover:text-cyber-yellow transition-all duration-300 font-brutal italic uppercase text-sm tracking-tighter">
             View Details & Reviews
           </button>
-          <a href="https://wa.me/" target="_blank" rel="noreferrer" className="flex-1" onClick={(e) => e.stopPropagation()}>
+          <a href={waLink} target="_blank" rel="noreferrer" className="flex-1" onClick={(e) => e.stopPropagation()}>
             <button className="w-full py-4 bg-transparent border border-white/10 hover:border-cyber-yellow hover:text-cyber-yellow transition-all duration-300 font-brutal italic uppercase text-sm tracking-tighter">
               Order via WhatsApp
             </button>
