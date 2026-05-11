@@ -5,8 +5,8 @@ import { Instagram, Facebook, Smartphone } from "lucide-react";
 export default function VibeSection() {
   const socialImages = [
     "https://dl.dropboxusercontent.com/scl/fi/xq0vpf57ktu1bnp6hyt8d/ChatGPT-Image-Apr-4-2026-11_57_07-PM.png?rlkey=3o4rrnxkhzakqb9dzug7yexu3",
-    "https://dl.dropboxusercontent.com/scl/fi/h1joquqr1f11a1zg7a2we/Untitled-design.png?rlkey=w738wp551fntd1vw19dixwiwg",
-    "https://dl.dropboxusercontent.com/scl/fi/dw2mqsi4zh6ia9n9umqpl/ChatGPT-Image-Apr-4-2026-11_56_32-PM.png?rlkey=7nxm26ga0n3mgskeggatvp63i",
+    "https://dl.dropboxusercontent.com/scl/fi/s86r2mnabwgcs9avmqu7w/1.png?rlkey=4lfjyjlfowp54r0ft3xmfni6r",
+    "https://dl.dropboxusercontent.com/scl/fi/o97kb50tyb78rqoum9swv/ChatGPT-Image-May-9-2026-08_18_17-PM.png?rlkey=0w0wyy7x4w1vpyke0a8ixfj4x",
     "https://dl.dropboxusercontent.com/scl/fi/19au922qvy9dw27hexn6m/ChatGPT-Image-Apr-4-2026-09_00_00-PM.png?rlkey=sr49hnmkjln17xbsfi6nlz7qs",
   ];
 

@@ -1,5 +1,6 @@
 import { ChevronDown, Star, X } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
+import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
 function Accordion({ title, children, defaultOpen = false }: { title: React.ReactNode, children: React.ReactNode, defaultOpen?: boolean }) {
@@ -51,8 +52,8 @@ const PRODUCTS: Product[] = [
   {
     id: "tee-01",
     name: "MOONLIES ASTRO TEE",
-    price: "Rs.3590.00",
-    image: "https://dl.dropboxusercontent.com/scl/fi/s86r2mnabwgcs9avmqu7w/1.png?rlkey=4lfjyjlfowp54r0ft3xmfni6r",
+    price: "Rs.3699.00",
+    image: "https://dl.dropboxusercontent.com/scl/fi/tzyuoh1zfesk3oz4vb0ws/Untitled-design-83.png?rlkey=liyrmppu5gk1p4ntlsb47dcgm",
     backImage: "https://dl.dropboxusercontent.com/scl/fi/xvrfx27wo0g6wrratcr68/2.png?rlkey=gy2m70ljkzjj58eoio8fmrrnh",
     tag: "LIMITED EDITION",
     reviewCount: 7,
@@ -81,9 +82,9 @@ const PRODUCTS: Product[] = [
   {
     id: "tee-02",
     name: "RORONOA's RAGE TEE",
-    price: "Rs.3990.00",
-    image: "https://dl.dropboxusercontent.com/scl/fi/gywqmdjv4dn2uvez4hso3/3.png?rlkey=qbqwwlzp97ilwvy0zx6wpms1d",
-    backImage: "https://dl.dropboxusercontent.com/scl/fi/il6gl0ixsmm6t1shdi1bv/4.png?rlkey=2nzreven0d7jise8qs4ly3jpq",
+    price: "Rs.3999.00",
+    image: "https://dl.dropboxusercontent.com/scl/fi/s1k4naoifckqusz0111sy/Untitled-design-82.png?rlkey=nl0ato8z1o61wm9l58gf2u07j",
+    backImage: "https://dl.dropboxusercontent.com/scl/fi/zmb3pixeibebxr8fhxq3l/Untitled-design-80.png?rlkey=0z9giflzea2qg94befekjufgd",
     tag: "STRICTLY 1/20",
     reviewCount: 9,
     description: "A bold fusion of anime inspired artistry and elevated streetwear design. Crafted to stand out with intricate back graphics and refined detailing, this oversized tee blends comfort, culture, and statement aesthetics into one premium essential.",
@@ -112,13 +113,12 @@ const PRODUCTS: Product[] = [
 const SL_REVIEWS = [
   { author: "Kavindu M.", text: "Quality eka patta. Supiriyata thiyenawa. Highly recommend!", rating: 5, date: "2 days ago" },
   { author: "Shehan D.", text: "Ade patta quality ban. Print eka ehemama thiyenawa wash kalata passe.", rating: 5, date: "1 week ago" },
-  { author: "Malith S.", text: "Fast delivery, box eka hodata pack karala thibba. Material eka mara premium.", rating: 5, date: "1 week ago" },
-  { author: "Tharindu P.", text: "Worth the price. Size eka perfectly fit una. Niyamai.", rating: 4, date: "2 weeks ago" },
-  { author: "Nimesh F.", text: "Meka nam gindara. Thawa designs danna. Customer service eka hodai.", rating: 5, date: "3 weeks ago" },
-  { author: "Dinuka R.", text: "I've bought from many local brands, but this one hits different. Sira.", rating: 5, date: "1 month ago" },
+  { author: "Malith S.", text: "Fast delivery, hodata pack karala thibba. Material eka mara premium.", rating: 5, date: "1 week ago" },
+  { author: "Tharindu P.", text: "Worth the price. Size eka perfectly fit una. ", rating: 4, date: "2 weeks ago" },
+  { author: "Nimesh F.", text: "Thawa designs danna. Customer service eka hodai.", rating: 5, date: "3 weeks ago" },
+  { author: "Dinuka R.", text: "I've bought from many local brands, but this one hits different.", rating: 5, date: "1 month ago" },
   { author: "Pasindu W.", text: "Superb quality t-shirt. Delivery was within 2 days to Kandy.", rating: 5, date: "1 month ago" },
   { author: "Ashan K.", text: "Patta. I was waiting for this drop. Didn't disappoint.", rating: 5, date: "1 month ago" },
-  { author: "Lahiru T.", text: "Fabric eka godak loku gathiyak thiyenawa. Ado sirawata patta.", rating: 5, date: "2 months ago" },
   { author: "Heshan L.", text: "Size is a bit large, but good oversized fit. Quality is 10/10.", rating: 4, date: "2 months ago" }
 ];
 
@@ -139,7 +139,7 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
   }, [product]);
 
   const displayedReviews = showAll ? reviews : reviews.slice(0, 3);
-  const waLink = `https://wa.me/94765251839?text=Hi,%20I%20would%20like%20to%20order%20the%20${encodeURIComponent(product.name)}%20(${product.price})`;
+  const waLink = `Message reveterra on WhatsApp. Message reveterra on WhatsApp. https://wa.me/94703370850?text=Hi,%20I%20would%20like%20to%20order%20the%20${encodeURIComponent(product.name)}%20(${product.price})`;
 
   return (
     <motion.div
@@ -153,7 +153,7 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
         initial={{ scale: 0.95, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.95, opacity: 0, y: 20 }}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
         className="bg-[#0a0a0a] border border-white/10 w-full max-w-6xl h-full max-h-[85vh] flex flex-col md:flex-row shadow-2xl relative overflow-hidden"
       >
         <button 
