@@ -52,7 +52,7 @@ const PRODUCTS: Product[] = [
   {
     id: "tee-01",
     name: "MOONLIES ASTRO TEE",
-    price: "Rs.3699.00",
+    price: "Rs.3999.00",
     image: "https://dl.dropboxusercontent.com/scl/fi/tzyuoh1zfesk3oz4vb0ws/Untitled-design-83.png?rlkey=liyrmppu5gk1p4ntlsb47dcgm",
     backImage: "https://dl.dropboxusercontent.com/scl/fi/xvrfx27wo0g6wrratcr68/2.png?rlkey=gy2m70ljkzjj58eoio8fmrrnh",
     tag: "LIMITED EDITION",
@@ -66,7 +66,7 @@ const PRODUCTS: Product[] = [
       "Minimal front chest branding.",
       "Washed dark finish for a timeless streetwear look."
     ],
-    fabric: "260GSM",
+    fabric: "300GSM",
     material: "100% Cotton",
     care: [
       "Wash and dry inside out.",
@@ -82,7 +82,7 @@ const PRODUCTS: Product[] = [
   {
     id: "tee-02",
     name: "RORONOA's RAGE TEE",
-    price: "Rs.3999.00",
+    price: "Rs.4499.00",
     image: "https://dl.dropboxusercontent.com/scl/fi/s1k4naoifckqusz0111sy/Untitled-design-82.png?rlkey=nl0ato8z1o61wm9l58gf2u07j",
     backImage: "https://dl.dropboxusercontent.com/scl/fi/zmb3pixeibebxr8fhxq3l/Untitled-design-80.png?rlkey=0z9giflzea2qg94befekjufgd",
     tag: "STRICTLY 1/20",
