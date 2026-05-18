@@ -68,7 +68,7 @@ export default function Hero() {
           >
             <div className="text-cyber-yellow text-[10px] font-bold tracking-widest uppercase mb-1">DROP 01 EXCLUSIVES</div>
             <div className="text-xl font-brutal italic leading-tight hover:text-cyber-yellow transition-colors">MOONLIES ASTRO TEE</div>
-            <div className="text-sm font-mono opacity-50 mt-2">Rs.3590.00</div>
+            <div className="text-sm font-mono opacity-50 mt-2">Rs.3999.00</div>
           </motion.div>
         </a>
       </div>
@@ -84,7 +84,7 @@ export default function Hero() {
           >
             <div className="text-cyber-yellow text-[10px] font-bold tracking-widest uppercase mb-1">LIMITED 20PCS</div>
             <div className="text-xl font-brutal italic leading-tight hover:text-cyber-yellow transition-colors">RORONOA's RAGE TEE</div>
-            <div className="text-sm font-mono opacity-50 mt-2">Rs.3990.00</div>
+            <div className="text-sm font-mono opacity-50 mt-2">Rs.4499.00</div>
           </motion.div>
         </a>
       </div>
